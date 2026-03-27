@@ -17,7 +17,7 @@ base = os.path.join(BASE_DIR, "greece")
 
 # ===================== LOAD CSV ===================== #
 df = pd.read_csv("greece.csv")
-image_paths = [base + p for p in df["img_path"]]
+image_paths = [base+'/1' + p for p in df["img_path"]]
 
 # ===================== LOAD FUNCTIONS ===================== #
 def __getResults__(path):
