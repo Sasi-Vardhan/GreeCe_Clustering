@@ -1,0 +1,10 @@
+streamlit
+pandas
+numpy
+pillow
+scikit-learn
+umap-learn
+torch
+torchvision
+tqdm
+joblib
