@@ -26,11 +26,30 @@ def __getResults__(path):
         data = pickle.load(f)
     return data
 
-def __getReducer__path(path):
-    redpath = os.path.join(BASE_DIR, "data", path)
-    with open(redpath, "rb") as f:
-        reducer = pickle.load(f)
+import joblib
+import umap
+
+@st.cache_resource
+def load_umap():
+    # load embeddings
+    Z = joblib.load(os.path.join(BASE_DIR, "data", "embeddings.pkl"))
+
+    reducer = umap.UMAP(
+        n_components=50,
+        n_neighbors=15,
+        min_dist=0.1,
+        metric='euclidean'
+    )
+
+    reducer.fit(Z)
+
     return reducer
+
+def __getReducer__path(path):
+    # redpath = os.path.join(BASE_DIR, "data", path)
+    # with open(redpath, "rb") as f:
+    #     reducer = pickle.load(f)
+    return load_umap()
 
 def __convert__image(path):
     embedder = getEmbeddings(BASE_DIR)
